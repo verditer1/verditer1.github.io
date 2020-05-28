@@ -1,5 +1,25 @@
 <HTML>
 
-HELLO THERE!
+	<HEAD>
 
+	</HEAD>
+	<BODY>
+		<H2>An AWS Based Parental Control using DNS Solution</H2>
+
+		<UL>
+			A Global Accelerator with EC2 endpoints and 2 static IP address you configure as your DNS resolvers in your home Wi-Fi router
+			The EC2 instances run Unbound, a free, open source BSD licensed caching, recursive DNS server (https://nlnetlabs.nl/projects/unbound/about/)
+			The EC2 instances run on FreeBSD from AWS Marketplace
+			Deployed in a private subnet with no public IP, no route to IGW, but an IGW is required to be attached to the VPC for Global Accelerator to work
+			Unbound is configured to
+			<UL>
+				Refuse DNS resolution for a large list (~86,000 domains) of known Porn sites compiled and hosted in Github by Steven Black - https://github.com/StevenBlack/hosts
+				Forward all other DNS queries to the VPC’s .2 resolver 
+				Maintain cumulative statistics of queries, rejects
+				IP rate limited to 10 queries per second from any single source IP
+				You can scale to as many instances, regions, AZs you need for any demand – but I found just one t3.micro is sufficient for a home
+			</UL>
+
+		</UL>
+	</BODY>
 </HTML>
